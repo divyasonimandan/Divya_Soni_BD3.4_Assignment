@@ -20,6 +20,7 @@ function addToArr(cart, productId, name, price, quantity) {
 }
 
 app.get('/cart/add', (req, res) => {
+  let cart = cart.slice();
   let productId = parseInt(req.query.productId);
   let name = req.query.name;
   let price = parseFloat(req.query.price);
@@ -40,6 +41,7 @@ function updateQuantityById(cart, productId, quantity) {
 }
 
 app.get('/cart/edit', (req, res) => {
+  let cart = cart.slice();
   let productId = parseInt(req.query.productId);
   let quantity = parseInt(req.query.quantity);
   let cartItems = updateQuantityById(cart, productId, quantity);
@@ -53,6 +55,7 @@ function deleteProductById(product, productId) {
 }
 
 app.get('/cart/delete', (req, res) => {
+  let cart = cart.slice();
   let productId = parseInt(req.query.productId);
   let cartItems = cart.filter(product => deleteProductById(product, productId));
   res.json({ cartItems });
@@ -68,7 +71,7 @@ app.get('/cart', (req, res) => {
 
 // Endpoint 5: Calculate Total Quantity of Items in the Cart
 
-function calculateTotalQuantity(cart, quantity) {
+function calculateTotalQuantity(cart) {
   let totalQuantity = 0;
   for ( let i = 0; i < cart.length; i++) {
     totalQuantity += cart[i].quantity;
