@@ -20,12 +20,11 @@ function addToArr(cart, productId, name, price, quantity) {
 }
 
 app.get('/cart/add', (req, res) => {
-  let cartCopy = cart.slice();
   let productId = parseInt(req.query.productId);
   let name = req.query.name;
   let price = parseFloat(req.query.price);
   let quantity = parseInt(req.query.quantity);
-  let cartItems = addToArr(cartCopy, productId, name, price, quantity);
+  let cartItems = addToArr(cart, productId, name, price, quantity);
   res.json({ cartItems });
 });
 
@@ -41,10 +40,9 @@ function updateQuantityById(cart, productId, quantity) {
 }
 
 app.get('/cart/edit', (req, res) => {
-  let cartCopy = cart.slice();
   let productId = parseInt(req.query.productId);
   let quantity = parseInt(req.query.quantity);
-  let cartItems = updateQuantityById(cartCopy, productId, quantity);
+  let cartItems = updateQuantityById(cart, productId, quantity);
   res.json({ cartItems });
 });
 
